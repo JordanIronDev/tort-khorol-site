@@ -58,155 +58,92 @@ const cakes = [
 </header>
 
     <!-- Стрічка робіт (Instagram Grid) -->
-    <main class="grid-container">
-        {cakes.map((cake) => (
-            <div class="card">
-                <div class="card-image">
-                    <img src={cake.img} alt={cake.title} />
-                    <div class="overlay">
-                        <span>{cake.title}</span>
-                    </div>
-                </div>
-                <!-- Кнопка замовлення під фото -->
-                <a 
-                  href={`https://t.me/+380661732120?text=Добрий день! Хочу замовити: ${cake.title}`} 
-                  class="order-btn" 
-                  target="_blank"
-                >
-                  Замовити
-                </a>
-            </div>
-        ))}
-    </main>
-</body>
-</html>
+   <main class="grid-container">
+  {products.map((product) => (
+    <div class="product-card">
+      <div class="image-wrapper">
+        <img src={product.img} alt={product.title} loading="lazy" />
+      </div>
+      <div class="product-info">
+        <h3>{product.title}</h3>
+        <p class="price">{product.price}</p>
+        <a href={product.link} class="order-btn">Замовити</a>
+      </div>
+    </div>
+  ))}
+</main>
 
 <style>
-    body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        background-color: #fafafa;
-        color: #262626;
-        margin: 0;
-        padding: 20px;
-    }
+  /* Контейнер сітки — 3 колонки як в Instagram */
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px; /* Мінімальний відступ між фото */
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 3px;
+  }
 
-    .profile-header {
-        max-width: 800px;
-        margin: 0 auto 30px auto;
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        background: #fff;
-        padding: 20px;
-        border-radius: 12px;
-        border: 1px solid #dbdbdb;
-    }
+  /* Картка товару */
+  .product-card {
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
 
-    .avatar {
-        width: 90px;
-        height: 90px;
-        border-radius: 50%;
-        object-fit: cover;
-        background: #eee;
-    }
+  /* Квадратні зображення */
+  .image-wrapper {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+  }
 
-    .username {
-        margin: 0 0 8px 0;
-        font-size: 1.4rem;
-    }
+  .image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
 
-    .bio {
-        margin: 4px 0;
-        font-size: 0.95rem;
-    }
+  /* Текстовий блок під фото (компактний) */
+  .product-info {
+    padding: 6px 4px;
+    text-align: center;
+  }
 
-    .buttons {
-        margin-top: 12px;
-        display: flex;
-        gap: 10px;
-    }
+  .product-info h3 {
+    font-size: 0.75rem;
+    margin: 0 0 2px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-    .btn {
-        text-decoration: none;
-        padding: 8px 14px;
-        border-radius: 6px;
-        font-size: 0.85rem;
-        font-weight: 600;
-        text-align: center;
-    }
+  .product-info .price {
+    font-size: 0.7rem;
+    font-weight: bold;
+    color: #222;
+    margin: 0 0 4px 0;
+  }
 
-    .btn-primary {
-        background-color: #0095f6;
-        color: white;
-    }
+  .order-btn {
+    display: block;
+    background-color: #25d366;
+    color: white;
+    font-size: 0.65rem;
+    font-weight: bold;
+    padding: 3px 0;
+    text-decoration: none;
+    border-radius: 4px;
+  }
 
-    .btn-secondary {
-        background-color: #efefef;
-        color: black;
-    }
-
+  /* Адаптив для планшетів/ПК — робимо 4 або 5 колонок */
+  @media (min-width: 600px) {
     .grid-container {
-        max-width: 800px;
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-        gap: 12px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      padding: 12px;
     }
-
-    .card {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .card-image {
-        position: relative;
-        aspect-ratio: 1 / 1;
-        background: #eee;
-        border-radius: 8px;
-        overflow: hidden;
-    }
-
-    .card-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .overlay {
-        position: absolute;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.4);
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        padding: 10px;
-        font-weight: bold;
-        opacity: 0;
-        transition: opacity 0.2s ease;
-    }
-
-    .card-image:hover .overlay {
-        opacity: 1;
-    }
-
-    /* Стилі для нової кнопки замовлення */
-    .order-btn {
-        display: block;
-        text-align: center;
-        background-color: #28a745;
-        color: white;
-        text-decoration: none;
-        padding: 8px;
-        border-radius: 6px;
-        font-size: 0.9rem;
-        font-weight: 600;
-        transition: background-color 0.2s;
-    }
-
-    .order-btn:hover {
-        background-color: #218838;
-    }
+  }
 </style>
